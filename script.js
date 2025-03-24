@@ -57,7 +57,6 @@ window.addEventListener('scroll', () => {
         sideNav.classList.toggle('visible', shouldShow);
     }
 });
-
 // Scroll behavior
 window.addEventListener('scroll', () => {
     if (window.innerWidth > 1200) {
