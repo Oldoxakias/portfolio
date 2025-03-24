@@ -1,4 +1,4 @@
-// Cursor Trail Effect
+/*// Cursor Trail Effect
 document.addEventListener('DOMContentLoaded', () => {
     const cursorTrail = document.querySelector('.cursor-trail');
     const positions = [];
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const diffDays = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
     const uptime = 99.9 + (Math.random() * 0.09);
     uptimeElement.textContent = `${uptime.toFixed(2)}% (${diffDays} days)`;
-});
+});*/
 // Smooth scroll for navigation links
 document.querySelectorAll('.nav-link').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
