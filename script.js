@@ -41,21 +41,34 @@ document.querySelectorAll('.nav-link').forEach(anchor => {
         history.pushState(null, null, targetId);
     });
 });
-// Updated JavaScript
-const sideNav = document.querySelector('.side-nav');
-const navToggle = document.querySelector('.nav-toggle');
+// Active Section Highlighting
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('.nav-link');
 
-// Toggle visibility
-navToggle.addEventListener('click', () => {
-    sideNav.classList.toggle('user-hidden');
-});
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+                link.classList.toggle('active', 
+                    link.getAttribute('href') === `#${id}`);
+            });
+        }
+    });
+}, { threshold: 0.5 });
 
-// Scroll handling
-window.addEventListener('scroll', () => {
-    if (window.innerWidth > 1200) {
-        const shouldShow = window.scrollY > 100 && !sideNav.classList.contains('user-hidden');
-        sideNav.classList.toggle('visible', shouldShow);
-    }
+sections.forEach(section => observer.observe(section));
+
+// Smooth Scroll
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        window.scrollTo({
+            top: target.offsetTop,
+            behavior: 'smooth'
+        });
+    });
 });
 // Scroll behavior
 window.addEventListener('scroll', () => {
