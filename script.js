@@ -41,7 +41,7 @@ document.querySelectorAll('.nav-link').forEach(anchor => {
         history.pushState(null, null, targetId);
     });
 });
-// Side navigation control
+// Show/hide side nav on scroll
 const sideNav = document.querySelector('.side-nav');
 
 window.addEventListener('scroll', () => {
@@ -53,7 +53,7 @@ window.addEventListener('scroll', () => {
 });
 
 // Smooth scroll for side nav links
-document.querySelectorAll('.vertical-nav .nav-link').forEach(link => {
+document.querySelectorAll('.side-nav .nav-link').forEach(link => {
     link.addEventListener('click', function(e) {
         e.preventDefault();
         const targetId = this.getAttribute('href');
