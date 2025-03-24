@@ -41,7 +41,7 @@ document.querySelectorAll('.nav-link').forEach(anchor => {
         history.pushState(null, null, targetId);
     });
 });
-// Updated JavaScript
+// Final JavaScript
 const sideNav = document.querySelector('.side-nav');
 const navToggle = document.querySelector('.nav-toggle');
 let isCollapsed = false;
@@ -55,16 +55,13 @@ navToggle.addEventListener('click', () => {
 
 // Scroll behavior
 window.addEventListener('scroll', () => {
-    if (window.innerWidth > 1200) { // Only on desktop
-        if (window.scrollY > 100 && !isCollapsed) {
-            sideNav.classList.add('visible');
-        } else {
-            sideNav.classList.remove('visible');
-        }
+    if (window.innerWidth > 1200) {
+        const shouldBeVisible = window.scrollY > 100 && !isCollapsed;
+        sideNav.classList.toggle('visible', shouldBeVisible);
     }
 });
 
-// Mobile hamburger menu fix
+// Mobile navigation
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(e) {
         if (window.innerWidth <= 1200) {
@@ -79,6 +76,8 @@ document.querySelectorAll('.nav-link').forEach(link => {
             });
             
             history.pushState(null, null, targetId);
+            document.querySelector('.popup-nav').style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
     });
 });
