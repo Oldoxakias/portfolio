@@ -41,29 +41,23 @@ document.querySelectorAll('.nav-link').forEach(anchor => {
         history.pushState(null, null, targetId);
     });
 });
-// Update the JavaScript for side navigation
+// Update JavaScript
 const sideNav = document.querySelector('.side-nav');
 const navToggle = document.querySelector('.nav-toggle');
-let isCollapsed = false;
+let isUserToggled = false;
 
 // Toggle navigation
 navToggle.addEventListener('click', () => {
-    isCollapsed = !isCollapsed;
-    sideNav.classList.toggle('collapsed', isCollapsed);
+    isUserToggled = !isUserToggled;
+    sideNav.classList.toggle('user-collapsed', isUserToggled);
+    sideNav.classList.toggle('visible', !isUserToggled);
 });
 
-// Scroll behavior - always show when scrolling down
+// Scroll behavior
 window.addEventListener('scroll', () => {
-    if (window.innerWidth > 1200) {
-        if (window.scrollY > 100) {
-            sideNav.classList.add('visible');
-            if (isCollapsed) {
-                sideNav.classList.remove('collapsed');
-                isCollapsed = false;
-            }
-        } else {
-            sideNav.classList.remove('visible');
-        }
+    if (window.innerWidth > 1200 && !isUserToggled) {
+        const shouldBeVisible = window.scrollY > 100;
+        sideNav.classList.toggle('visible', shouldBeVisible);
     }
 });
 

@@ -139,16 +139,7 @@
     flex-direction: column;
     gap: 1.5rem;
 }
-/* Add this CSS fix */
-.side-nav.visible {
-    right: 20px !important;
-    opacity: 1 !important;
-}
 
-.side-nav.collapsed {
-    right: -210px;
-    opacity: 0;
-}
 .mobile-nav-links a {
     color: white;
     text-decoration: none;
@@ -186,10 +177,35 @@
     transition: transform 0.3s ease;
 }
 
-.side-nav.collapsed .nav-toggle i {
-    transform: rotate(180deg);
+/* Update CSS */
+.side-nav {
+    right: -250px;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.side-nav.visible {
+    right: 20px;
+    opacity: 1;
+}
+
+.side-nav.user-collapsed {
+    right: -250px !important;
+    opacity: 0 !important;
+}
+
+.nav-toggle {
+    /* Keep previous styles */
+    pointer-events: auto;
+}
+
+.side-nav.visible .nav-toggle i {
+    transform: rotate(0deg);
+}
+
+.side-nav.user-collapsed .nav-toggle i {
+    transform: rotate(180deg);
+}
 /* Ensure Font Awesome is loaded */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 body {
