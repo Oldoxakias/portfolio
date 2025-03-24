@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const uptime = 99.9 + (Math.random() * 0.09);
     uptimeElement.textContent = `${uptime.toFixed(2)}% (${diffDays} days)`;
 });
+
 // Smooth scroll for navigation links
 document.querySelectorAll('.nav-link').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -41,24 +42,46 @@ document.querySelectorAll('.nav-link').forEach(anchor => {
         history.pushState(null, null, targetId);
     });
 });
-// Active Section Highlighting
+// Active Section Detection
 const sections = document.querySelectorAll('section');
 const navLinks = document.querySelectorAll('.nav-link');
 
-const observer = new IntersectionObserver(entries => {
+const options = {
+    threshold: 0.5,
+    rootMargin: '0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-        if(entry.isIntersecting) {
+        if (entry.isIntersecting) {
             const id = entry.target.getAttribute('id');
             navLinks.forEach(link => {
-                link.classList.toggle('active', 
-                    link.getAttribute('href') === `#${id}`);
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${id}`) {
+                    link.classList.add('active');
+                }
             });
         }
     });
-}, { threshold: 0.5 });
+}, options);
 
 sections.forEach(section => observer.observe(section));
 
+// Smooth Scroll
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        const headerHeight = document.querySelector('.portfolio-header').offsetHeight;
+        
+        window.scrollTo({
+            top: target.offsetTop - headerHeight,
+            behavior: 'smooth'
+        });
+        
+        history.pushState(null, null, this.getAttribute('href'));
+    });
+});
 // Smooth Scroll
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(e) {
