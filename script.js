@@ -41,30 +41,44 @@ document.querySelectorAll('.nav-link').forEach(anchor => {
         history.pushState(null, null, targetId);
     });
 });
-// Show/hide side nav on scroll
+// Updated JavaScript
 const sideNav = document.querySelector('.side-nav');
+const navToggle = document.querySelector('.nav-toggle');
+let isCollapsed = false;
 
+// Toggle navigation
+navToggle.addEventListener('click', () => {
+    isCollapsed = !isCollapsed;
+    sideNav.classList.toggle('collapsed', isCollapsed);
+    sideNav.classList.toggle('visible', !isCollapsed);
+});
+
+// Scroll behavior
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) {
-        sideNav.classList.add('visible');
-    } else {
-        sideNav.classList.remove('visible');
+    if (window.innerWidth > 1200) { // Only on desktop
+        if (window.scrollY > 100 && !isCollapsed) {
+            sideNav.classList.add('visible');
+        } else {
+            sideNav.classList.remove('visible');
+        }
     }
 });
 
-// Smooth scroll for side nav links
-document.querySelectorAll('.side-nav .nav-link').forEach(link => {
+// Mobile hamburger menu fix
+document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        const headerHeight = document.querySelector('.portfolio-header').offsetHeight;
-        
-        window.scrollTo({
-            top: targetSection.offsetTop - headerHeight,
-            behavior: 'smooth'
-        });
-        
-        history.pushState(null, null, targetId);
+        if (window.innerWidth <= 1200) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            const headerHeight = document.querySelector('.portfolio-header').offsetHeight;
+            
+            window.scrollTo({
+                top: targetSection.offsetTop - headerHeight,
+                behavior: 'smooth'
+            });
+            
+            history.pushState(null, null, targetId);
+        }
     });
 });
