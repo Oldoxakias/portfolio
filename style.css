@@ -139,7 +139,16 @@
     flex-direction: column;
     gap: 1.5rem;
 }
+/* Add this CSS fix */
+.side-nav.visible {
+    right: 20px !important;
+    opacity: 1 !important;
+}
 
+.side-nav.collapsed {
+    right: -210px;
+    opacity: 0;
+}
 .mobile-nav-links a {
     color: white;
     text-decoration: none;

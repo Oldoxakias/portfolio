@@ -41,7 +41,7 @@ document.querySelectorAll('.nav-link').forEach(anchor => {
         history.pushState(null, null, targetId);
     });
 });
-// Final JavaScript
+// Update the JavaScript for side navigation
 const sideNav = document.querySelector('.side-nav');
 const navToggle = document.querySelector('.nav-toggle');
 let isCollapsed = false;
@@ -50,7 +50,21 @@ let isCollapsed = false;
 navToggle.addEventListener('click', () => {
     isCollapsed = !isCollapsed;
     sideNav.classList.toggle('collapsed', isCollapsed);
-    sideNav.classList.toggle('visible', !isCollapsed);
+});
+
+// Scroll behavior - always show when scrolling down
+window.addEventListener('scroll', () => {
+    if (window.innerWidth > 1200) {
+        if (window.scrollY > 100) {
+            sideNav.classList.add('visible');
+            if (isCollapsed) {
+                sideNav.classList.remove('collapsed');
+                isCollapsed = false;
+            }
+        } else {
+            sideNav.classList.remove('visible');
+        }
+    }
 });
 
 // Scroll behavior
@@ -81,6 +95,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
         }
     });
 });
+
 // Mobile menu toggle
 const hamburger = document.querySelector('.hamburger-menu');
 const mobileNav = document.querySelector('.mobile-nav');
