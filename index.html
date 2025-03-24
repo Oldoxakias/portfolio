@@ -33,7 +33,26 @@
 <!-- Update side navigation HTML -->
 <!-- Update side navigation HTML -->
 <!-- Update side navigation HTML -->
-<nav class="side-nav">
+<button class="hamburger-menu mobile-only">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+
+<!-- Mobile popup menu -->
+<div class="mobile-nav">
+    <div class="mobile-nav-content">
+        <button class="close-btn">&times;</button>
+        <nav class="mobile-nav-links">
+            <a href="#skills"><i class="fas fa-code"></i>Δεξιότητες</a>
+            <a href="#homelab"><i class="fas fa-server"></i>Homelab</a>
+            <a href="#projects"><i class="fas fa-project-diagram"></i>Έργα</a>
+            <a href="#certifications"><i class="fas fa-certificate"></i>Εκπαίδευση</a>
+            <a href="#contact"><i class="fas fa-envelope"></i>Επικοινωνία</a>
+        </nav>
+    </div>
+</div>
+<nav class="side-nav desktop-only">
     <button class="nav-toggle">
         <i class="fas fa-chevron-left"></i>
     </button>

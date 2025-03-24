@@ -81,3 +81,22 @@ document.querySelectorAll('.nav-link').forEach(link => {
         }
     });
 });
+// Mobile menu toggle
+const hamburger = document.querySelector('.hamburger-menu');
+const mobileNav = document.querySelector('.mobile-nav');
+const closeBtn = document.querySelector('.close-btn');
+
+hamburger.addEventListener('click', () => {
+    mobileNav.style.display = 'block';
+});
+
+closeBtn.addEventListener('click', () => {
+    mobileNav.style.display = 'none';
+});
+
+// Close when clicking outside
+mobileNav.addEventListener('click', (e) => {
+    if(e.target === mobileNav) {
+        mobileNav.style.display = 'none';
+    }
+});
