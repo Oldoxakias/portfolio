@@ -41,3 +41,30 @@ document.querySelectorAll('.nav-link').forEach(anchor => {
         history.pushState(null, null, targetId);
     });
 });
+// Side navigation control
+const sideNav = document.querySelector('.side-nav');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 100) {
+        sideNav.classList.add('visible');
+    } else {
+        sideNav.classList.remove('visible');
+    }
+});
+
+// Smooth scroll for side nav links
+document.querySelectorAll('.vertical-nav .nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        const headerHeight = document.querySelector('.portfolio-header').offsetHeight;
+        
+        window.scrollTo({
+            top: targetSection.offsetTop - headerHeight,
+            behavior: 'smooth'
+        });
+        
+        history.pushState(null, null, targetId);
+    });
+});
