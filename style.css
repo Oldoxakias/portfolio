@@ -177,6 +177,7 @@
     transition: transform 0.3s ease;
 }
 
+
 /* Update CSS */
 .side-nav {
     right: -250px;
@@ -189,21 +190,16 @@
     opacity: 1;
 }
 
-.side-nav.user-collapsed {
+.side-nav.user-hidden {
     right: -250px !important;
     opacity: 0 !important;
 }
 
-.nav-toggle {
-    /* Keep previous styles */
-    pointer-events: auto;
+.nav-toggle i {
+    transition: transform 0.3s ease;
 }
 
-.side-nav.visible .nav-toggle i {
-    transform: rotate(0deg);
-}
-
-.side-nav.user-collapsed .nav-toggle i {
+.side-nav.user-hidden .nav-toggle i {
     transform: rotate(180deg);
 }
 /* Ensure Font Awesome is loaded */

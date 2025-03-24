@@ -41,23 +41,20 @@ document.querySelectorAll('.nav-link').forEach(anchor => {
         history.pushState(null, null, targetId);
     });
 });
-// Update JavaScript
+// Updated JavaScript
 const sideNav = document.querySelector('.side-nav');
 const navToggle = document.querySelector('.nav-toggle');
-let isUserToggled = false;
 
-// Toggle navigation
+// Toggle visibility
 navToggle.addEventListener('click', () => {
-    isUserToggled = !isUserToggled;
-    sideNav.classList.toggle('user-collapsed', isUserToggled);
-    sideNav.classList.toggle('visible', !isUserToggled);
+    sideNav.classList.toggle('user-hidden');
 });
 
-// Scroll behavior
+// Scroll handling
 window.addEventListener('scroll', () => {
-    if (window.innerWidth > 1200 && !isUserToggled) {
-        const shouldBeVisible = window.scrollY > 100;
-        sideNav.classList.toggle('visible', shouldBeVisible);
+    if (window.innerWidth > 1200) {
+        const shouldShow = window.scrollY > 100 && !sideNav.classList.contains('user-hidden');
+        sideNav.classList.toggle('visible', shouldShow);
     }
 });
 
