@@ -83,111 +83,42 @@
     padding: 0;
     box-sizing: border-box;
 }
-/* Vertical Navigation Fixes */
+/* Add these CSS corrections */
 .side-nav {
-    position: fixed;
     right: -250px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1000;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0;
-    background: rgba(30, 30, 30, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 1.5rem 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    width: 250px;
-    display: flex;
-    flex-direction: column;
+    overflow: visible; /* Add this */
 }
 
-.side-nav.visible {
-    right: 20px;
-    opacity: 1;
-}
-
-.side-nav.collapsed {
-    right: -210px;
-}
-
-.nav-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-}
-
-.nav-link {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    color: rgba(255, 255, 255, 0.9);
-    text-decoration: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-/* Mobile-Specific Fixes */
-@media (max-width: 1200px) {
-    .side-nav {
-        display: none !important;
-    }
-    
-    .hamburger-menu {
-        display: block;
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 1000;
-    }
-    
-    .popup-nav {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .popup-links {
-        flex-direction: column;
-        width: 100%;
-        padding: 2rem;
-    }
-    
-    .popup-links .nav-link {
-        width: 100%;
-        justify-content: center;
-    }
-}
-
-/* Toggle Button Improvements */
 .nav-toggle {
     position: absolute;
-    left: -40px;
+    left: -35px; /* Adjusted position */
     top: 50%;
     transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    background: rgba(30, 30, 30, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    background: rgba(67, 97, 238, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--accent);
+    z-index: 1001; /* Higher than side-nav */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.nav-toggle:hover {
-    background: var(--primary);
-    color: white;
+.nav-toggle i {
+    transition: transform 0.3s ease;
 }
 
 .side-nav.collapsed .nav-toggle i {
     transform: rotate(180deg);
 }
+
+/* Ensure Font Awesome is loaded */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--dark);
