@@ -154,3 +154,36 @@ mobileNav.addEventListener('click', (e) => {
         mobileNav.style.display = 'none';
     }
 });
+// Active section detection
+//const sections = document.querySelectorAll('section');
+//const navIcons = document.querySelectorAll('.nav-icon');
+
+observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navIcons.forEach(icon => {
+                icon.classList.toggle('active', 
+                    icon.getAttribute('href') === `#${id}`);
+            });
+        }
+    });
+}, { threshold: 0.5 });
+
+sections.forEach(section => observer.observe(section));
+
+// Smooth scroll
+document.querySelectorAll('.nav-icon').forEach(icon => {
+    icon.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        const headerHeight = document.querySelector('.portfolio-header').offsetHeight;
+        
+        window.scrollTo({
+            top: target.offsetTop - headerHeight,
+            behavior: 'smooth'
+        });
+        
+        history.pushState(null, null, this.getAttribute('href'));
+    });
+});
