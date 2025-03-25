@@ -208,8 +208,14 @@ body {
         transform 0.15s linear,
         opacity 0.3s ease;
     will-change: transform;
+    display: block;
 }
 
+@media (hover: none) and (pointer: coarse) {
+    .cursor-trail {
+        display: none !important;
+    }
+}
 .portfolio-header {
     padding: 2rem 0;
     position: relative;
@@ -1097,6 +1103,21 @@ html {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
+/* Desktop Navigation */
+.desktop-nav {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    background: rgba(30, 30, 30, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
 .nav-container2 {
     display: flex;
     flex-direction: column;
@@ -1143,4 +1164,11 @@ html {
 
 .nav-icon:hover .tooltip {
     opacity: 1;
+}
+
+/* Mobile Devices - Hide Completely */
+@media (max-width: 1200px) {
+    .desktop-nav {
+        display: none !important;
+    }
 }

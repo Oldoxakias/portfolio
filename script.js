@@ -134,7 +134,13 @@ document.querySelectorAll('.nav-link').forEach(link => {
         }
     });
 });
+// Only initialize cursor trail on desktop
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
+if (!isMobile) {
+    const cursorTrail = document.querySelector('.cursor-trail');
+    // ... rest of the cursor trail JavaScript code ...
+}
 // Mobile menu toggle
 const hamburger = document.querySelector('.hamburger-menu');
 const mobileNav = document.querySelector('.mobile-nav');
