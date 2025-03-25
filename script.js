@@ -1,20 +1,57 @@
-// Cursor Trail Effect
-document.addEventListener('DOMContentLoaded', () => {
-    const cursorTrail = document.querySelector('.cursor-trail');
-    const positions = [];
-    
-    document.addEventListener('mousemove', (e) => {
-        positions.push({ x: e.clientX, y: e.clientY });
-        if (positions.length > 20) positions.shift();
-        
-        positions.forEach((pos, index) => {
-            setTimeout(() => {
-                cursorTrail.style.left = `${pos.x}px`;
-                cursorTrail.style.top = `${pos.y}px`;
-            }, index * 10);
-        });
-    });
 
+const cursorTrail = document.querySelector('.cursor-trail');
+let mouseX = 0;
+let mouseY = 0;
+let trailX = 0;
+let trailY = 0;
+let isMoving = false;
+
+// Store last positions for smoothing
+const posQueue = [];
+const MAX_POSITIONS = 5;
+
+// Update mouse position
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    isMoving = true;
+    
+    // Store positions for smoothing
+    posQueue.push({ x: mouseX, y: mouseY });
+    if(posQueue.length > MAX_POSITIONS) posQueue.shift();
+});
+
+// Smooth animation frame
+const animate = () => {
+    if(isMoving && posQueue.length > 0) {
+        // Get averaged position
+        const avgPos = posQueue.reduce((acc, pos) => {
+            return { x: acc.x + pos.x, y: acc.y + pos.y };
+        }, { x: 0, y: 0 });
+        
+        const targetX = avgPos.x / posQueue.length;
+        const targetY = avgPos.y / posQueue.length;
+        
+        // Smooth interpolation
+        trailX += (targetX - trailX) * 0.3;
+        trailY += (targetY - trailY) * 0.3;
+        
+        cursorTrail.style.transform = `translate(${trailX}px, ${trailY}px)`;
+        cursorTrail.style.opacity = '0.8';
+    } else {
+        cursorTrail.style.opacity = '0';
+    }
+    
+    requestAnimationFrame(animate);
+};
+
+// Handle mouse leave
+document.addEventListener('mouseleave', () => {
+    isMoving = false;
+});
+
+// Start animation
+animate();
     // Uptime calculation
     const uptimeElement = document.getElementById('uptime');
     const startDate = new Date('2023-01-01');
@@ -22,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const diffDays = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
     const uptime = 99.9 + (Math.random() * 0.09);
     uptimeElement.textContent = `${uptime.toFixed(2)}% (${diffDays} days)`;
-});
 
 // Smooth scroll for navigation links
 document.querySelectorAll('.nav-link').forEach(anchor => {
@@ -38,50 +74,27 @@ document.querySelectorAll('.nav-link').forEach(anchor => {
             behavior: 'smooth'
         });
         
-        // Update URL without jumping
         history.pushState(null, null, targetId);
     });
 });
-// Active Section Detection
+// Active Section Highlighting
 const sections = document.querySelectorAll('section');
 const navLinks = document.querySelectorAll('.nav-link');
 
-const options = {
-    threshold: 0.5,
-    rootMargin: '0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
+const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-        if (entry.isIntersecting) {
+        if(entry.isIntersecting) {
             const id = entry.target.getAttribute('id');
             navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${id}`) {
-                    link.classList.add('active');
-                }
+                link.classList.toggle('active', 
+                    link.getAttribute('href') === `#${id}`);
             });
         }
     });
-}, options);
+}, { threshold: 0.5 });
 
 sections.forEach(section => observer.observe(section));
 
-// Smooth Scroll
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        const headerHeight = document.querySelector('.portfolio-header').offsetHeight;
-        
-        window.scrollTo({
-            top: target.offsetTop - headerHeight,
-            behavior: 'smooth'
-        });
-        
-        history.pushState(null, null, this.getAttribute('href'));
-    });
-});
 // Smooth Scroll
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(e) {

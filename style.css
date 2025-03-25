@@ -194,19 +194,20 @@ body {
     background: radial-gradient(circle at 10% 20%, var(--darker) 0%, var(--dark) 90%);
 }
 
-/* Cursor Trail Effect */
 .cursor-trail {
     position: fixed;
-    width: 20px;
-    height: 20px;
+    width: 12px;
+    height: 12px;
+    background: var(--primary);
     border-radius: 50%;
-    background: var(--accent);
     pointer-events: none;
+    z-index: 9999;
     transform: translate(-50%, -50%);
     mix-blend-mode: screen;
-    z-index: 9999;
-    opacity: 0.3;
-    filter: blur(1px);
+    transition: 
+        transform 0.15s linear,
+        opacity 0.3s ease;
+    will-change: transform;
 }
 
 /* Header Styles */
